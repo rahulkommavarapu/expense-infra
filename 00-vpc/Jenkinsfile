@@ -29,6 +29,9 @@ pipeline {
             }
         }
         stage('Apply') {
+            when {
+                expression {param.ACTION == 'apply'}
+            }
             input {
                 message "Should we continue?"
                 ok "Yes, we should."
@@ -47,7 +50,14 @@ pipeline {
         }
         
         stage('Destroy') {
-            
+            when {
+                expression {param.ACTION == 'destory'}
+            }
+            input{
+                message "are you sure want to destroy?"
+                ok"destroy"
+
+            }
             steps {
                script{
                 withAWS(region: 'us-east-1', credentials: 'aws-creds') {
