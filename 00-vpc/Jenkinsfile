@@ -28,26 +28,26 @@ pipeline {
                }
             }
         }
-        stage('Apply') {
-            when {
-                expression {params.ACTION == 'apply'}
-            }
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-            }
-            steps {
-               script{
-                withAWS(region: 'us-east-1', credentials: 'aws-creds') {
-                    sh """
-                        cd 00-vpc
-                        terraform apply -auto-approve
-                    """
-                }
+        // stage('Apply') {
+        //     when {
+        //         expression {params.ACTION == 'apply'}
+        //     }
+        //     input {
+        //         message "Should we continue?"
+        //         ok "Yes, we should."
+        //     }
+        //     steps {
+        //        script{
+        //         withAWS(region: 'us-east-1', credentials: 'aws-creds') {
+        //             sh """
+        //                 cd 00-vpc
+        //                 terraform apply -auto-approve
+        //             """
+        //         }
                  
-               }
-            }
-        }
+        //        }
+        //     }
+        // }
         
         stage('Destroy') {
             when {
@@ -55,7 +55,7 @@ pipeline {
             }
             input{
                 message "are you sure want to destroy?"
-                ok "destroy"
+                ok"destroy"
 
             }
             steps {
