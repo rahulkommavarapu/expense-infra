@@ -30,7 +30,7 @@ pipeline {
         }
         stage('Apply') {
             when {
-                expression {param.ACTION == 'apply'}
+                expression {params.ACTION == 'apply'}
             }
             input {
                 message "Should we continue?"
@@ -51,11 +51,11 @@ pipeline {
         
         stage('Destroy') {
             when {
-                expression {param.ACTION == 'destory'}
+                expression {params.ACTION == 'destroy'}
             }
             input{
                 message "are you sure want to destroy?"
-                ok"destroy"
+                ok "destroy"
 
             }
             steps {
