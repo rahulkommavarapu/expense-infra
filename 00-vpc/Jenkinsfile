@@ -45,14 +45,29 @@ pipeline {
                }
             }
         }
-        stage('Trigger SG'){
-            when { 
-                expression { params.ACTION == 'apply'}
-            }
-            steps{
-                build job: '10-sg', parameters: [string(name: 'ACTION', value: 'apply')], propagate: true
+        
+        stage('Apply') {
+            
+            steps {
+               script{
+                withAWS(region: 'us-east-1', credentials: 'aws-creds') {
+                    sh """
+                        cd 00-vpc
+                        terraform destroy -auto-approve
+                    """
+                }
+                 
+               }
             }
         }
+        // stage('Trigger SG'){
+        //     when { 
+        //         expression { params.ACTION == 'apply'}
+        //     }
+        //     steps{
+        //         build job: '10-sg', parameters: [string(name: 'ACTION', value: 'apply')], propagate: true
+        //     }
+        // }
     }
     post { 
         always { 
