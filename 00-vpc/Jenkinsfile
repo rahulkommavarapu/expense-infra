@@ -1,94 +1,57 @@
 pipeline {
     agent { label 'AGENT' }
-    environment { 
-        PROJECT = 'EXPENSE'
-        COMPONENT = 'BACKEND' 
-        DEPLOY_TO = "production"
-    }
+
     options {
         disableConcurrentBuilds()
         timeout(time: 30, unit: 'MINUTES')
         ansiColor('xterm')
     }
-    parameters{
-        choice(name: 'ACTION', choices: ['apply', 'destroy'], description: 'Pick something')
+
+    parameters {
+        choice(
+            name: 'ACTION',
+            choices: ['apply', 'destroy'],
+            description: 'Select action'
+        )
     }
+
     stages {
+
         stage('Init') {
             steps {
-               script{
                 withAWS(region: 'us-east-1', credentials: 'aws-creds') {
-                    sh """
+                    sh '''
                         cd 00-vpc
                         terraform init -reconfigure
-                        terraform plan
-                    """
+                    '''
                 }
-                 
-               }
             }
         }
-        // stage('Apply') {
-        //     when {
-        //         expression {params.ACTION == 'apply'}
-        //     }
-        //     input {
-        //         message "Should we continue?"
-        //         ok "Yes, we should."
-        //     }
-        //     steps {
-        //        script{
-        //         withAWS(region: 'us-east-1', credentials: 'aws-creds') {
-        //             sh """
-        //                 cd 00-vpc
-        //                 terraform apply -auto-approve
-        //             """
-        //         }
-                 
-        //        }
-        //     }
-        // }
-        
+
         stage('Destroy') {
             when {
-                expression {params.ACTION == 'destroy'}
+                expression { params.ACTION == 'destroy' }
             }
-            input{
-                message "are you sure want to destroy?"
-                ok"destroy"
 
+            input {
+                message 'Are you sure you want to destroy the VPC?'
+                ok 'Destroy'
             }
+
             steps {
-               script{
                 withAWS(region: 'us-east-1', credentials: 'aws-creds') {
-                    sh """
+                    sh '''
                         cd 00-vpc
                         terraform destroy -auto-approve
-                    """
+                    '''
                 }
-                 
-               }
             }
         }
-        // stage('Trigger SG'){
-        //     when { 
-        //         expression { params.ACTION == 'apply'}
-        //     }
-        //     steps{
-        //         build job: '10-sg', parameters: [string(name: 'ACTION', value: 'apply')], propagate: true
-        //     }
-        // }
     }
-    post { 
-        always { 
-            echo 'I will always say Hello again!'
+
+    post {
+        always {
             deleteDir()
-        }
-        failure { 
-            echo 'I will run when pipeline is failed'
-        }
-        success { 
-            echo 'I will run when pipeline is success'
         }
     }
 }
