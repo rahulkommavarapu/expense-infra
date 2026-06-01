@@ -24,7 +24,7 @@ variable "sg_tags" {
     Name = "mysql-sg"
   }
 }
-
+# Password DevOps321
 variable "db_password" {
   sensitive = true
 }
