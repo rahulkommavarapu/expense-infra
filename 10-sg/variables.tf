@@ -25,9 +25,7 @@ variable "sg_tags" {
   }
 }
 # Password DevOps321
-variable "db_password" {
-  sensitive = true
-}
+
 
 variable "is_peering_required" {
   default = false
