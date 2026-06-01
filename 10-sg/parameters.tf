@@ -37,8 +37,3 @@ resource "aws_ssm_parameter" "vpn_sg_id" {
   value = module.vpn_sg.sg_id
 }
 
-resource "aws_ssm_parameter" "expense_dev_db_password" {
-  name  = "/${var.project_name}/${var.environment}/expense_dev_db_password"
-  type  = "SecureString"
-  value = var.db_password
-}
