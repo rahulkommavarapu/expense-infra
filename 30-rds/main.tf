@@ -11,7 +11,7 @@ module "db" {
   username = "root"
   port     = "3306"
   #password = "ExpenseApp1"
-  manage_master_user_password = false
+  manage_master_user_password = true
 
   vpc_security_group_ids = [local.mysql_sg_id]
 
