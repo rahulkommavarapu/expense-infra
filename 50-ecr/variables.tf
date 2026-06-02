@@ -13,11 +13,3 @@ variable "common_tags" {
         Terraform = "true"
     }
 }
-
-variable "domain_name" {
-    default = "practice25.online"
-}
-
-variable "zone_id" {
-    default = "Z001854036XQKN6X4S0CB"
-}

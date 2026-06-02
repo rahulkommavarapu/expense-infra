@@ -15,3 +15,7 @@ resource "aws_ecr_repository" "frontend" {
     scan_on_push = true
   }
 }
+
+
+
+
