@@ -7,9 +7,9 @@ resource "aws_key_pair" "eks" {
 
 }
 
-module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.0"
+   module "eks" {
+   source  = "terraform-aws-modules/eks/aws"
+   version = "~> 20.0" 
 
   cluster_name    = local.name
   cluster_version = "1.32" # later we upgrade 1.32
@@ -59,22 +59,22 @@ module "eks" {
       }
     } 
 
-    /* green = {
-      # Starting on 1.30, AL2023 is the default AMI type for EKS managed node groups
-      #ami_type       = "AL2_x86_64"
-      instance_types = ["m5.xlarge"]
-      key_name = aws_key_pair.eks.key_name
+    # green = {
+    #   # Starting on 1.30, AL2023 is the default AMI type for EKS managed node groups
+    #   #ami_type       = "AL2_x86_64"
+    #   instance_types = ["m5.xlarge"]
+    #   key_name = aws_key_pair.eks.key_name
 
-      min_size     = 2
-      max_size     = 10
-      desired_size = 2
-      # Worker Node Policies
-      iam_role_additional_policies = {   
-        AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
-        AmazonEFSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
-        AmazonEKSLoadBalancingPolicy = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
-      }
-    } */
+    #   min_size     = 2
+    #   max_size     = 10
+    #   desired_size = 2
+    #   # Worker Node Policies
+    #   iam_role_additional_policies = {   
+    #     AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+    #     AmazonEFSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
+    #     AmazonEKSLoadBalancingPolicy = "arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess"
+    #   }
+    # } 
   }
 
   tags = merge(
