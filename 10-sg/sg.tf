@@ -58,6 +58,29 @@ module "app_alb_sg" {
 
 }
 
+module "eks_control_plane_sg" {
+    source = "git::https://github.com/rahulkommavarapu/terraform-aws-securitygroup.git?ref=main"
+    project_name = var.project_name
+    environment = var.environment
+    sg_name = "eks-control-plane"
+    sg_description = "Created for backend ALB in expense dev"
+    vpc_id = data.aws_ssm_parameter.vpc_id.value
+    common_tags = var.common_tags
+    sg_tags = var.sg_tags
+}
+
+
+module "eks_node_sg" {
+    source = "git::https://github.com/rahulkommavarapu/terraform-aws-securitygroup.git?ref=main"
+    project_name = var.project_name
+    environment = var.environment
+    sg_name = "eks-node"
+    sg_description = "Created for backend ALB in expense dev"
+    vpc_id = data.aws_ssm_parameter.vpc_id.value
+    common_tags = var.common_tags
+     sg_tags = var.sg_tags
+}
+
 # terraform aws security group rule,  Application Load Balancer accepting Traffic from bastion Host IP
 resource "aws_security_group_rule" "app-alb-bastion" {
   type                     = "ingress"
@@ -90,6 +113,8 @@ module "vpn_sg" {
   sg_tags        = var.sg_tags
 
 }
+
+
 
 # GIVE THE Port Number 22 fOR Server Logging and Checking 
 resource "aws_security_group_rule" "vpn_ssh" {
