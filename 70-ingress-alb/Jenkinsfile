@@ -19,52 +19,23 @@ pipeline {
                script{
                 withAWS(region: 'us-east-1', credentials: 'aws-creds') {
                     sh """
-                        cd 70-ingress-alb
+                        cd 40-eks
                         terraform init -reconfigure
-                        
+                        terraform plan
                     """
                 }
                  
                }
             }
         }
-        stage('Apply or Destroy') {
+        stage('Apply') {
             steps {
                script{
                 withAWS(region: 'us-east-1', credentials: 'aws-creds') {
-                    
-                     if (params.ACTION == 'apply') {
-                        sh """
-                            cd 70-ingress-alb
-                            terraform plan
-                            terraform apply -auto-approve
-                        """
-                    } else {
-                        sh """
-                            cd 70-ingress-alb
-                            terraform destroy -auto-approve
-                        """
-                    }
-                }
-                 
-               }
-            }
-        }
-        stage('Destroy Infra') {
-            when { 
-                expression { params.ACTION == 'destroy'}
-            }
-            steps {
-               script{
-                withAWS(region: 'us-east-1', credentials: 'aws-creds') {
-                    def list = ["60-acm", "50-ecr", "40-eks", "30-rds", "20-bastion", "10-sg", "00-vpc"]
-                    for(item in list){
-                        sh """
-                            cd $item
-                            terraform init -reconfigure
-                            terraform destroy -auto-approve
-                        """
-                    }
+                    sh """
+                        cd 40-eks
+                        terraform apply -auto-approve
+                    """
                 }
                  
                }
