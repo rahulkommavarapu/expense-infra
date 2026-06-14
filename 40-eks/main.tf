@@ -13,10 +13,10 @@ resource "aws_key_pair" "eks" {
 
   cluster_name    = local.name
   cluster_version = "1.32" # later we upgrade 1.32
-  create_node_security_group = false
-  create_cluster_security_group = false
-  cluster_security_group_id = local.eks_control_plane_sg_id
-  node_security_group_id = local.eks_node_sg_id
+  create_node_security_group = true
+  # create_cluster_security_group = true
+  # cluster_security_group_id = local.eks_control_plane_sg_id
+  # node_security_group_id = local.eks_node_sg_id
 
   #bootstrap_self_managed_addons = false
   cluster_addons = {
