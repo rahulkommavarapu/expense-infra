@@ -83,4 +83,4 @@ resource "aws_key_pair" "eks" {
         Name = local.name
     }
   )
-}
+   }
