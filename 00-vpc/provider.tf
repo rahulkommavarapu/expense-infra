@@ -10,6 +10,7 @@ terraform {
     key            = "expense-dev-vpc"
     region         = "us-east-1"
     dynamodb_table = "83s-remote-state-env"
+    use_lockfile = true
   }
 
 
