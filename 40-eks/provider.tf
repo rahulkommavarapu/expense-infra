@@ -8,7 +8,7 @@ terraform {
   
   backend "s3" {
     bucket         = "rahul-remote-state"
-    key            = "expense-dev-vpc"
+    key            = "expense-dev-eks"
     region         = "us-east-1"
     # dynamodb_table = "83s-remote-state-env"
     use_lockfile = true
