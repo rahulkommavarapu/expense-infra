@@ -37,6 +37,19 @@ resource "aws_ssm_parameter" "vpn_sg_id" {
   value = module.vpn_sg.sg_id
 }
 
+resource "aws_ssm_parameter" "eks_control_plane_sg_id" {
+  name = "/${var.project_name}/${var.environment}/eks_control_plane_sg_id"
+  type = "String"
+  value = module.eks_control_plane_sg
+}
+
+resource "aws_ssm_parameter" "eks_node_sg_id" {
+  name = "/${var.project_name}/${var.environment}/eks_node_sg_id"
+  type = "String"
+  value = module.eks_node_sg_id  
+}
+
+
 # resource "aws_ssm_parameter" "expense_dev_db_password" {
 #   name  = "/${var.project_name}/${var.environment}/expense_dev_db_password"
 #   type  = "SecureString"
