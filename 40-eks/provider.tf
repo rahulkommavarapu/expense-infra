@@ -5,11 +5,12 @@ terraform {
       version = "5.95.0"
     }
   }
+  
   backend "s3" {
-    bucket         = "83s-remote-state-devlop"
-    key            = "expense-dev-eks"
+    bucket         = "rahul-remote-state"
+    key            = "expense-dev-vpc"
     region         = "us-east-1"
-    dynamodb_table = "83s-remote-state-devlop"
+    dynamodb_table = "83s-remote-state-env"
   }
 
 
