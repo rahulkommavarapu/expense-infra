@@ -7,10 +7,10 @@ terraform {
   }
 
   backend "s3" {
-    bucket = "83s-remote-state-devlop"
-    key    = "expense-dev-rds" # you should have unique keys with in the bucket, same key should not be used in other repos or tf projects
-    region = "us-east-1"
-    dynamodb_table = "83s-remote-state-devlop"
+    bucket         = "rahul-remote-state"
+    key            = "expense-dev-vpc"
+    region         = "us-east-1"
+    dynamodb_table = "83s-remote-state-env"
   }
 }
 
