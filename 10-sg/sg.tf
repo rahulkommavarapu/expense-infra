@@ -58,6 +58,17 @@ module "app_alb_sg" {
 
 }
 
+module "alb_ingress_sg" {
+    source = "git::https://github.com/rahulkommavarapu/terraform-aws-securitygroup.git?ref=main"
+    project_name = var.project_name
+    environment = var.environment
+    sg_name = "app-alb"
+    sg_description = "Created for backend ALB in expense dev"
+    vpc_id = data.aws_ssm_parameter.vpc_id.value
+    common_tags = var.common_tags
+    sg_tags = var.sg_tags
+}
+
 module "eks_control_plane_sg" {
     source = "git::https://github.com/rahulkommavarapu/terraform-aws-securitygroup.git?ref=main"
     project_name = var.project_name
