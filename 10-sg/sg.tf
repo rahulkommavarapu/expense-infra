@@ -88,7 +88,7 @@ resource "aws_security_group_rule" "app-alb-bastion" {
   to_port                  = 80
   protocol                 = "tcp"
   source_security_group_id = module.bastion_sg.sg_id # string ,Lst []
-  security_group_id        = module.app_ingress_sg.sg_id # Accepting the Traffic from Bastion Host IP
+  security_group_id        = module.alb_ingress_sg.sg_id # Accepting the Traffic from Bastion Host IP
 }
 # Give the Permission to Access the Bastion Pubic Server
 resource "aws_security_group_rule" "bastion_public" {
