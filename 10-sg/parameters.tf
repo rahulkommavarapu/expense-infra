@@ -37,7 +37,7 @@ resource "aws_ssm_parameter" "vpn_sg_id" {
   value = module.vpn_sg.sg_id
 }
 resource "aws_ssm_parameter" "alb_ingress_sg_id" {
-  name = "/${var.project_name}/${var.environment}/alb_ingress_sg-id"
+  name = "/${var.project_name}/${var.environment}/alb_ingress_sg_id"
   type = "String"
   value = module.alb_ingress_sg.sg_id
   
